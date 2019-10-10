@@ -1,21 +1,29 @@
 package com.islwyden.agendaeletronica.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.islwyden.agendaeletronica.repository.ContatoRepository;
 import com.islwyden.agendaeletronica.resources.Contato;
 
-@Controller
+@RestController
+@RequestMapping(value="/contatos")
 public class ContatoController {
 
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Contato> listar() {
+		List<Contato> contatos = new ArrayList<Contato>();
+		
+		Contato c1 = new Contato("marcio", "999999", "marcio@gmail.com");
+		Contato c2 = new Contato("fraga", "8888888", "fraga@gmail.com");
+		contatos.add(c1);
+		contatos.add(c2);
+		return contatos;
+	}
+	/*
 	@Autowired
 	private ContatoRepository cr;
 
@@ -34,4 +42,5 @@ public class ContatoController {
 	         }
 	         return "index";
 	 }
+	 */
 }
