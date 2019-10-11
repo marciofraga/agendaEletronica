@@ -1,5 +1,6 @@
 package com.islwyden.agendaeletronica.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ public class ContatoService {
 
 	@Autowired
 	private ContatoRepository repository;
+	
+	public List<Contato> buscarTodos() {
+		List<Contato> contatos = repository.findAll();
+		return contatos;
+	}
 	
 	public Contato buscar(Long id) {
 		Optional<Contato> obj = repository.findById(id);

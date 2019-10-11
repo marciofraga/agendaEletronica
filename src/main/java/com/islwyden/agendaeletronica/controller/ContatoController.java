@@ -1,6 +1,7 @@
 package com.islwyden.agendaeletronica.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,12 @@ public class ContatoController {
 
 	@Autowired
 	private ContatoService service;
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Contato>> listar() {
+		List<Contato> contatos = service.buscarTodos();
+		return ResponseEntity.ok().body(contatos);
+	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Contato> buscar(@PathVariable Long id) {
