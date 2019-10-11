@@ -1,46 +1,51 @@
 package com.islwyden.agendaeletronica.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URI;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.islwyden.agendaeletronica.resources.Contato;
+import com.islwyden.agendaeletronica.services.ContatoService;
 
 @RestController
 @RequestMapping(value="/contatos")
 public class ContatoController {
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Contato> listar() {
-		List<Contato> contatos = new ArrayList<Contato>();
-		
-		Contato c1 = new Contato("marcio", "999999", "marcio@gmail.com");
-		Contato c2 = new Contato("fraga", "8888888", "fraga@gmail.com");
-		contatos.add(c1);
-		contatos.add(c2);
-		return contatos;
-	}
-	/*
 	@Autowired
-	private ContatoRepository cr;
-
-	@RequestMapping(value = "/cadastrarAgenda", method = RequestMethod.POST)
-    public String adicionaContato(Contato contato, BindingResult result, RedirectAttributes attributes) {
-		cr.save(contato);
-		return "redirect:/cadastrarAgenda";
+	private ContatoService service;
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Contato> buscar(@PathVariable Long id) {
+		Contato obj = service.buscar(id);
+		
+		return ResponseEntity.ok().body(obj);
 	}
 	
-	@RequestMapping(value ="/cadastrarAgenda", method = RequestMethod.GET)
-	public String listaContatos(Model model) {
-			
-		 List<Contato> listaContatos = cr.findAll();
-	         if (listaContatos != null) {
-	               model.addAttribute("contatos", listaContatos);
-	         }
-	         return "index";
-	 }
-	 */
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> inserir(@RequestBody Contato obj) {
+		obj = service.inserir(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		
+		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> atualizar(@RequestBody Contato obj, @PathVariable Long id) {
+		obj.setId(id);
+		service.atualizar(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> excluir(@PathVariable Long id) {
+		service.excluir(id);
+		return ResponseEntity.noContent().build();
+	}
 }
