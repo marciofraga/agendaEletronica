@@ -43,7 +43,8 @@ public class ContatoController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Contato obj, @PathVariable Long id) {
+	public ResponseEntity<Void> atualizar(@RequestBody Contato obj, 
+											@PathVariable Long id) {
 		obj.setId(id);
 		service.atualizar(obj);
 		return ResponseEntity.noContent().build();

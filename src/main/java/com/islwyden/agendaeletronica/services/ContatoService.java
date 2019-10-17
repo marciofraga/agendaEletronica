@@ -23,7 +23,8 @@ public class ContatoService {
 	
 	public Contato buscar(Long id)  {
 		Optional<Contato> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Contato não encontrado"));
+		return obj.orElse(null);
+		//return obj.orElseThrow(() -> new ObjectNotFoundException("Contato não encontrado"));
 	}
 	
 	public Contato inserir(Contato obj) {
