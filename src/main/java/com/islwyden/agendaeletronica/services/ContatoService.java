@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.islwyden.agendaeletronica.exception.ObjectNotFoundException;
 import com.islwyden.agendaeletronica.repository.ContatoRepository;
 import com.islwyden.agendaeletronica.resources.Contato;
 
@@ -20,9 +21,9 @@ public class ContatoService {
 		return contatos;
 	}
 	
-	public Contato buscar(Long id) {
+	public Contato buscar(Long id)  {
 		Optional<Contato> obj = repository.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Contato não encontrado"));
 	}
 	
 	public Contato inserir(Contato obj) {

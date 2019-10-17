@@ -31,7 +31,6 @@ public class ContatoController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Contato> buscar(@PathVariable Long id) {
 		Contato obj = service.buscar(id);
-		
 		return ResponseEntity.ok().body(obj);
 	}
 	
