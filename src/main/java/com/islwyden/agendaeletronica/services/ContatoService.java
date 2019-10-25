@@ -18,13 +18,15 @@ public class ContatoService {
 	
 	public List<Contato> buscarTodos() {
 		List<Contato> contatos = repository.findAll();
+		if(contatos.isEmpty())
+			Optional.empty().orElseThrow(() -> new ObjectNotFoundException("Nenhum contato encontrado"));
 		return contatos;
 	}
 	
 	public Contato buscar(Long id)  {
 		Optional<Contato> obj = repository.findById(id);
-		return obj.orElse(null);
-		//return obj.orElseThrow(() -> new ObjectNotFoundException("Contato não encontrado"));
+		//return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Contato não encontrado"));
 	}
 	
 	public Contato inserir(Contato obj) {
