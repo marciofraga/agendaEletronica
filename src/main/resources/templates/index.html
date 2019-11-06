@@ -2,12 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Agenda Eletrônica Wyden</title>
+	
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src= "js/agenda.js"></script>
 </head>
 <body>
 	<h2>Agenda Eletronica</h2>
 
+	<div id="lista">
+	    <dl id="linha">
+	      <dt>
+	      	<span class="nome"></span>
+	        <span class="telefone"></span>
+	        <span class="email"></span>
+	      </dt>
+	      
+	    </dl>
+  	</div>
+
+<!-- 
  	<div th:unless="${#lists.isEmpty(contatos)}">
 	    <dl th:each="contato : ${contatos}">
 	      <dt >
@@ -31,6 +46,6 @@
 	    <input type="submit"></input>
 	</form>
   <hr />
-  	
+ -->
 </body>
 </html>
