@@ -17,10 +17,25 @@
 	      	<span class="nome"></span>
 	        <span class="telefone"></span>
 	        <span class="email"></span>
+	        
+	        <button class="excluir" hidden="true"></button>
+	        <button class="selecionar" hidden="true"></button>
 	      </dt>
-	      
 	    </dl>
   	</div>
+  	
+  	<h3>Adicione um novo contato:</h3>
+	<div id="cadastro">
+	    <label for="nome">nome:</label> 
+	    <input type="text" name="nome" id="nome" size="15"></input><br />  
+	    <label for="telefone">telefone:</label> 
+	    <input type="text" name="telefone" id="telefone" size="15"></input><br /> 
+	    <label for="email">email:</label>
+	    <input type="text" name="email" id="email" size="15"></input><br />
+	    <p>
+	    <button id="enviar">Enviar</button>
+	    <button id="editar">Editar</button>
+	</div>
 
 <!-- 
  	<div th:unless="${#lists.isEmpty(contatos)}">
