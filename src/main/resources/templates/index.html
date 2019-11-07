@@ -12,25 +12,37 @@
 	<script src= "js/agenda.js"></script>
 </head>
 <body>
-	<h2>Agenda Eletronica</h2>
-
+	<h2 class="text-center">Agenda Eletronica</h2>
+	</br>
 	<div id="lista">
-	    <dl id="linha">
-	      <dt>
-	      	<span class="nome"></span>
-	      	
-	        <span class="telefone"></span>
-	       
-	        <span class="email"></span>
-	        
-	        <button class="excluir btn btn-info" hidden="true"></button>
-	        <button class="selecionar btn btn-info" hidden="true"></button>
-	        <hr>
-	      </dt>
-	    </dl>
+	
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">Nome</th>
+	      <th scope="col">Telefone</th>
+	      <th scope="col">Email</th>
+	      <th scope="col">Opções</th>
+	    </tr>
+	  </thead>
+	  <tbody id="linha">
+	    <tr>
+	      <th scope="row" class="nome"></th>
+	      <td class="telefone"></td>
+	      <td class="email"></td>
+	      <td>
+	      	<button class="excluir btn btn-info" hidden="true"></button>
+	        <button class="selecionar btn btn-success" hidden="true"></button>
+	      </td>
+	    </tr>
+	  </tbody>
+    </table>
+	    
   	</div>
-  	
+  	</br>
+  	</br>
   	<h3>Adicione um novo contato:</h3>
+  	<hr>
 	<div id="cadastro">
 	    <label for="nome">nome:</label> 
 	    <input type="text" name="nome" id="nome" size="15"></input><br />  
@@ -40,7 +52,7 @@
 	    <input type="text" name="email" id="email" size="15"></input><br />
 	    <p>
 	    	<button id="enviar" class="btn btn-info">Enviar</button>
-	    	<button id="editar" class="btn btn-info">Editar</button>
+	    	<button id="editar" class="btn btn-danger">Editar</button>
 	    </p>
 	</div>
 

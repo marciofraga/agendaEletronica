@@ -3,7 +3,7 @@ var $dt;
 
 //função para criar uma nova linha
 function adicionar(contato) {
-	var linha = $('#linha dt:last-child').clone();
+	var linha = $('#linha tr:last-child').clone();
 		
 	$('.nome', linha).html(contato.nome);
 	$('.telefone', linha).html(contato.telefone);
@@ -62,7 +62,7 @@ $(document).ready(function() {
 	// realiza a exclusão de um contato
 	$('#lista').delegate('.excluir', 'click', function() {
 		
-		$dt = $(this).closest('dt');
+		$dt = $(this).closest('tr');
 		
 		$.ajax({
 			method: 'DELETE',
@@ -81,11 +81,11 @@ $(document).ready(function() {
 	// realiza a seleção de um contato a ser alterado
 	$('#lista').delegate('.selecionar', 'click', function() {
 		
-		$dt = $(this).closest('dt');
+		$dt = $(this).closest('tr');
 		
-		$('#nome').val($dt.find('span.nome').html());
-		$('#telefone').val($dt.find('span.telefone').html());
-		$('#email').val($dt.find('span.email').html());
+		$('#nome').val($dt.find('th.nome').html());
+		$('#telefone').val($dt.find('td.telefone').html());
+		$('#email').val($dt.find('td.email').html());
 		$('#editar').attr('data-id', $dt.find('button.excluir').attr('data-id'));
 	});
 	
@@ -106,10 +106,10 @@ $(document).ready(function() {
 			data: JSON.stringify(contato), 
 			success: function(contato) {
 				
-				$dt.find('span.nome').html(contato.nome);
-				$dt.find('span.telefone').html(contato.telefone);
-				$dt.find('span.email').html(contato.email);
-				$dt.find('button.excluir').attr('data-id', contato.id);
+				$dt.find('th.nome').html(contato.nome);
+				$dt.find('td.telefone').html(contato.telefone);
+				$dt.find('td.email').html(contato.email);
+				$dt.find('td.excluir').attr('data-id', contato.id);
 				
 				$('#nome').val("");
 				$('#telefone').val("");
