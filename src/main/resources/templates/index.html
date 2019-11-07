@@ -5,6 +5,9 @@
 	<meta charset="UTF-8">
 	<title>Agenda Eletrônica Wyden</title>
 	
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src= "js/agenda.js"></script>
 </head>
@@ -15,11 +18,14 @@
 	    <dl id="linha">
 	      <dt>
 	      	<span class="nome"></span>
+	      	
 	        <span class="telefone"></span>
+	       
 	        <span class="email"></span>
 	        
-	        <button class="excluir" hidden="true"></button>
-	        <button class="selecionar" hidden="true"></button>
+	        <button class="excluir btn btn-info" hidden="true"></button>
+	        <button class="selecionar btn btn-info" hidden="true"></button>
+	        <hr>
 	      </dt>
 	    </dl>
   	</div>
@@ -33,8 +39,9 @@
 	    <label for="email">email:</label>
 	    <input type="text" name="email" id="email" size="15"></input><br />
 	    <p>
-	    <button id="enviar">Enviar</button>
-	    <button id="editar">Editar</button>
+	    	<button id="enviar" class="btn btn-info">Enviar</button>
+	    	<button id="editar" class="btn btn-info">Editar</button>
+	    </p>
 	</div>
 
 <!-- 

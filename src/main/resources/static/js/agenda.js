@@ -46,6 +46,11 @@ $(document).ready(function() {
 			success: function(contato) {
 				console.log(contato);
 				adicionar(contato);
+				
+				$('#nome').val("");
+				$('#telefone').val("");
+				$('#email').val("");
+				$('#editar').attr("");
 			},
 			error: function() {
 				console.log(contato);
