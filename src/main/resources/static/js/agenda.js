@@ -1,7 +1,5 @@
-// variável que representa a linha selecionada
-var $dt;
+var line;
 
-//função para criar uma nova linha
 function adicionar(contato) {
 	var linha = $('#linha tr:last-child').clone();
 		
@@ -13,113 +11,93 @@ function adicionar(contato) {
 	$('#linha').append(linha);
 };
 
-// JQuery CRUD para o recurso contato
 $(document).ready(function() {
-	// realiza a listagem de todos os contatos
+	
 	$.ajax({
-		type:'GET',
+		type: 'GET',
 		url: '/contatos',
 		success: function(contatos) {
 			contatos.forEach(function(contato, indice) {
 				console.log(contato);
 				adicionar(contato);
-			});
+			})
 		},
 		error: function() {
-			alert("erro ao listar contatos");
+			alert("Erro ao listar contatos");
 		}
 	});
 	
-	// realiza o cadastro de um contato
 	$('#enviar').on('click', function() {
-		var contato = {
-			nome: $('#nome').val(),
-			telefone: $('#telefone').val(),
-			email: $('#email').val()
-		};
-		
-		$.ajax({
-			method: 'POST',
-			url: '/contatos',
-			contentType: 'application/json',
-			data: JSON.stringify(contato),
-			success: function(contato) {
-				console.log(contato);
-				adicionar(contato);
-				
-				$('#nome').val("");
-				$('#telefone').val("");
-				$('#email').val("");
-				$('#editar').attr("");
-			},
-			error: function() {
-				console.log(contato);
-				alert('erro ao cadastrar contato');
-			}
-		});
-	});
-	
-	// realiza a exclusão de um contato
-	$('#lista').delegate('.excluir', 'click', function() {
-		
-		$dt = $(this).closest('tr');
-		
-		$.ajax({
-			method: 'DELETE',
-			url: '/contatos/' + $(this).attr('data-id'),
-			success: function() {
-				$dt.fadeOut(200, function() {
-					$(this).remove();
-				});
-			},
-			error: function() {
-				alert("Erro ao excluir contato");
-			}
-		});
-	});
-	
-	// realiza a seleção de um contato a ser alterado
-	$('#lista').delegate('.selecionar', 'click', function() {
-		
-		$dt = $(this).closest('tr');
-		
-		$('#nome').val($dt.find('th.nome').html());
-		$('#telefone').val($dt.find('td.telefone').html());
-		$('#email').val($dt.find('td.email').html());
-		$('#editar').attr('data-id', $dt.find('button.excluir').attr('data-id'));
-	});
-	
-	//envia a requisição para alterar um contato em específico
-	$('#editar').on('click', function() {
-		var $editar = $(this).closest('button');
 		
 		var contato = {
 				nome: $('#nome').val(),
-				telefone: $('#telefone').val(),
-				email: $('#email').val()
-			};
+				email: $('#email').val(),
+				telefone: $('#telefone').val()
+		};
 		
 		$.ajax({
-			method: 'PUT',
-			url: '/contatos/' + $(this).attr('data-id'),
+			type: 'POST',
+			url: '/contatos',
+			data: JSON.stringify(contato),
+			dataType: 'json',
 			contentType: 'application/json',
-			data: JSON.stringify(contato), 
 			success: function(contato) {
-				
-				$dt.find('th.nome').html(contato.nome);
-				$dt.find('td.telefone').html(contato.telefone);
-				$dt.find('td.email').html(contato.email);
-				$dt.find('td.excluir').attr('data-id', contato.id);
-				
-				$('#nome').val("");
-				$('#telefone').val("");
-				$('#email').val("");
-				$('#editar').attr("");
+				adicionar(contato);
+			},
+			error: function() {
+				alert("Erro ao cadastrar contato");
+			}
+		});
+	});
+	
+	$('#lista').delegate('.excluir', 'click', function() {
+		
+		line = $(this).closest('tr');
+		
+		$.ajax({
+			type: 'DELETE',
+			url: '/contatos/' + $(this).attr('data-id'),
+			success: function() {
+				line.fadeOut(300, function() {
+					line.remove();
+				})
 				
 			},
 			error: function() {
-				alert("Erro ao alterar contato");
+				alert("erro ao excluir contato");
 			}
+		});
 	});
+	
+	$('#lista').delegate('.selecionar', 'click', function() {
+		line = $(this).closest('tr');
+		
+		$('#nome').val(line.find('th.nome').html());
+		$('#email').val(line.find('td.email').html());
+		$('#telefone').val(line.find('td.telefone').html());
+	});
+	
+	$('#editar').on('click', function() {
+		
+		var contato = {
+			nome: $('#nome').val(),
+			email: $('#email').val(),
+			telefone: $('#telefone').val()
+		};
+		
+		$.ajax({
+			type: 'PUT',
+			url: '/contatos/' + line.find('button.excluir').attr('data-id'),
+			data: JSON.stringify(contato),
+			contentType: 'application/json',
+			success: function(contato) {
+				line.find('th.nome').html(contato.nome);
+				line.find('td.telefone').html(contato.telefone);
+				line.find('td.email').html(contato.email);
+			},
+			error: function() {
+				alert("erro ao editar contato");
+			}
+		});
 	});
 });

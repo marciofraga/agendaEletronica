@@ -37,9 +37,9 @@ public class ContatoController {
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Contato> inserir(@RequestBody Contato obj) {
 		obj = service.inserir(obj);
-		//URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.created(uri).body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
